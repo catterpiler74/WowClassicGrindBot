@@ -1,6 +1,6 @@
 start "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" "http://localhost:5000"
-d:
-cd D:\GitHub\WowPixelBot\BlazorServer
+g:
+cd G:\repos\BlazorServer
 dotnet run
 
 pause

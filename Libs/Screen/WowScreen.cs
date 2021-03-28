@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using PInvoke;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -25,10 +27,32 @@ namespace Libs
 
         public static Bitmap GetAddonBitmap(int width = 600, int height = 200)
         {
+            RECT rect = new RECT();
+            Process? wowProcess = WowProcess.Get();
+            if (WowProcess.Get() != null)
+            {
+#pragma warning disable CS8602 // 可能 null 參考的取值 (dereference)。
+                var handle = wowProcess.MainWindowHandle;
+#pragma warning restore CS8602 // 可能 null 參考的取值 (dereference)。
+                NativeMethods.GetWindowRect(handle, ref rect);
+            }
+
+            int bottom = rect.bottom; //= 609;
+            int left = rect.left; //-9;
+            int leftoffset = 9; //-9;
+            int rightoffset = 7; //-9;
+            int right = rect.right; //809;
+            int top = rect.top; //-29;
+            int topoffset = 29; //-29;
+            int bottomoffset = 9; //-29;
+
+            width = right - left - leftoffset - rightoffset; // 817 - 1 800 8+1
+            height = bottom - top - topoffset - bottomoffset; // 638 - 0 600 29
+
             var bmpScreen = new Bitmap(width, height);
             using (var graphics = Graphics.FromImage(bmpScreen))
             {
-                graphics.CopyFromScreen(0, 0, 0, 0, bmpScreen.Size);
+                graphics.CopyFromScreen(left + leftoffset, top + topoffset, 0, 0, bmpScreen.Size);
             }
             return bmpScreen;
         }
