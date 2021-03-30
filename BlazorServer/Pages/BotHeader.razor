@@ -4,8 +4,10 @@
 
 <div class="card">
     <div class="card-header">
-        Player
-        <span class="float-right badge @CombatBadge()">@Libs.GOAP.GoapKeyDescription.ToString(Libs.GOAP.GoapKey.incombat, PlayerInCombat)</span>
+        Player at @addonReader.PlayerReader.XCoord.ToString("0.0") , @addonReader.PlayerReader.YCoord.ToString("0.0")
+        <span class="float-right badge @CombatBadge()">
+            @Libs.GOAP.GoapKeyDescription.ToString(Libs.GOAP.GoapKey.incombat, PlayerInCombat)
+        </span>
     </div>
     <div class="card-body" style="padding-bottom: 0">
         <table class="table table-bordered">

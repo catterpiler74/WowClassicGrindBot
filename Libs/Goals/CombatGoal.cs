@@ -44,7 +44,8 @@ namespace Libs.Goals
             bool pressed = false;
             foreach (var item in this.Keys)
             {
-                bool isFightold=(DateTime.Now - lastActive).TotalSeconds > 5 && (DateTime.Now - lastPulled).TotalSeconds > 5;
+                //bool isFightold=(DateTime.Now - lastActive).TotalSeconds > 5 && (DateTime.Now - lastPulled).TotalSeconds > 5;
+                bool isFightold = (DateTime.Now - lastActive).TotalSeconds > 3;//理論上應該是每次攻擊都要但，應該判斷近距離 or error 訊息
                 if (item.Name == "Interact" && !isFightold) // don't interact at the start of the fight
                 {
                     item.SetClicked();
